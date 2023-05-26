@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Anywhere Mobile Exercise(Simpsons)</string>
+    <string name="data_api">http://api.duckduckgo.com/?q=simpsons+characters&amp;format=json</string>
+</resources>
