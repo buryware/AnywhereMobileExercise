@@ -2,13 +2,16 @@ package com.example.anywheremobileexercise
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.AsyncTask
-import android.os.Bundle
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.net.URL
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.anywheremobileexercise.CharactersService
+//import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -16,10 +19,6 @@ import java.net.URL
 */
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var Lv_developers: ListView
-    lateinit var Pbar: ProgressBar
-    private var viewItems: MutableList<Any?>? = ArrayList()
 
     // Checking Internet is available or not
     private val isNetworkConnected: Boolean
@@ -35,43 +34,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // findViewById and set view id
-        Pbar = findViewById(R.id.Pbar)
-        Lv_developers = findViewById(R.id.Lv_developers)
-
         if (isNetworkConnected) {
-
-        //    RetrieveFeedTask().execute(urlToRssFeed)
-
+            loadCharacters()
         } else {
             Toast.makeText(applicationContext, "No Internet Connection Yet!", Toast.LENGTH_SHORT).show()
         }
     }
 
-   /* internal class RetrieveFeedTask :
-        AsyncTask<String?, Void?, RSSFeed?>() {
-        private var exception: Exception? = null
-        protected override fun doInBackground(vararg urls: String): RSSFeed? {
-            return try {
-                val url = URL(urls[0])
-                val factory: SAXParserFactory = SAXParserFactory.newInstance()
-                val parser: SAXParser = factory.newSAXParser()
-                val xmlreader: XMLReader = parser.getXMLReader()
-                val theRSSHandler = RssHandler()
-                xmlreader.setContentHandler(theRSSHandler)
-                val `is` = InputSource(url.openStream())
-                xmlreader.parse(`is`)
-                theRSSHandler.getFeed()
-            } catch (e: Exception) {
-                exception = e
-                null
-            } finally {
-                `is`.close()
+    private fun loadCharacters() {
+        //initiate the service
+        val destinationService = ServiceBuilder.buildService(CharactersService::class.java)
+        val requestCall = destinationService.getAffectedCharacterList()
+        //make network call asynchronously
+        requestCall.enqueue(object : Callback<List<MyCharacter>> {
+            override fun onResponse(call: Call<List<MyCharacter>>, response: Response<List<MyCharacter>>) {
+                Log.d("Response", "onResponse: ${response.body()}")
+                if (response.isSuccessful){
+                    val characterList = response.body()!!
+                    Log.d("Response", "characterlist size : ${characterList.size}")
+                   /* characters_recycler.apply {
+                        setHasFixedSize(true)
+                        layoutManager = GridLayoutManager(this@MainActivity,2)
+                        adapter = CharactersAdapter(response.body()!!)
+                    }*/
+                }else{
+                    Toast.makeText(this@MainActivity, "Something went wrong ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
-
-        override fun onPostExecute(feed: RSSFeed?) {
-            // TODO: check this.exception
-            // TODO: do something with the feed
-        }*/
+            override fun onFailure(call: Call<List<MyCharacter>>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Something went wrong $t", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

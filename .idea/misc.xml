@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/layout/activity_main.xml" value="0.2765625" />
+        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/layout/activity_main.xml" value="0.22249690976514216" />
+        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/layout/characters_item_details.xml" value="0.146875" />
+        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/layout/characters_item_list.xml" value="0.146875" />
         <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/layout/simple_listview_item.xml" value="0.16979166666666667" />
+        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.151" />
+        <entry key="..\:/Users/bury-/AndroidStudioProjects/AnywhereMobileExercise/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.151" />
       </map>
     </option>
   </component>
