@@ -12,17 +12,13 @@ import com.squareup.picasso.Picasso
 class CharactersAdapter(private val charactersList: List<MyCharacter>) :RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         val view  = LayoutInflater.from(parent.context).inflate(R.layout.characters_item_details,parent,false)
         return ViewHolder(view)
     }
 
-
     override fun getItemCount(): Int {
-
         return charactersList.size
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("Response", "List Count :${charactersList.size} ")
@@ -31,8 +27,6 @@ class CharactersAdapter(private val charactersList: List<MyCharacter>) :Recycler
 
     }
     class ViewHolder(itemView : View) :RecyclerView.ViewHolder(itemView) {
-
-
         var imageView = itemView.findViewById<ImageView>(R.id.ivCharacterImage)
         var tvName = itemView.findViewById<TextView>(R.id.tvCharacterName)
         var tvTitle = itemView.findViewById<TextView>(R.id.tvCharacterTitle)
@@ -42,7 +36,8 @@ class CharactersAdapter(private val charactersList: List<MyCharacter>) :Recycler
             val name ="Cases :${character.charactername.toString()}"
               tvName.text = character.charactername
               tvTitle.text = character.charactertitle
-       //       Picasso.get().load(character.c).into(imageView);
+              tvDescription.text = character.characterdescription
+          //    Picasso.get().load(character.characterInfo).into(imageView);
         }
 
     }

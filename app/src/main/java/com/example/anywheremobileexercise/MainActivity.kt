@@ -1,18 +1,17 @@
 package com.example.anywheremobileexercise
 
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.anywheremobileexercise.CharactersService
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.anywheremobileexercise.CharactersService
-//import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 /**
 * Author: Steve Stansbury.
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         //initiate the service
         val destinationService = ServiceBuilder.buildService(CharactersService::class.java)
         val requestCall = destinationService.getAffectedCharacterList()
+        
         //make network call asynchronously
         requestCall.enqueue(object : Callback<List<MyCharacter>> {
             override fun onResponse(call: Call<List<MyCharacter>>, response: Response<List<MyCharacter>>) {
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     val characterList = response.body()!!
                     Log.d("Response", "characterlist size : ${characterList.size}")
-                   /* characters_recycler.apply {
+                 /*   viewer_recycler.apply {
                         setHasFixedSize(true)
                         layoutManager = GridLayoutManager(this@MainActivity,2)
                         adapter = CharactersAdapter(response.body()!!)

@@ -1,7 +1,7 @@
 package com.example.anywheremobileexercise
 
 import android.content.res.Resources
-import androidx.core.content.res.TypedArrayUtils.getString
+import com.example.anywheremobileexercise.MainActivity.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,9 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceBuilder {
 
-    //Get our characters Data API
-  //  private val apiURL = Resources.getSystem().getString(R.string.data_api)
-    private val apiURL = "http://api.duckduckgo.com/?q=simpsons+characters&format=json"
+    private val apiURL = Resources.getSystem().getString(R.string.data_api)
 
         //Create HTTP CLIENT
     private val okHttp = OkHttpClient.Builder()
