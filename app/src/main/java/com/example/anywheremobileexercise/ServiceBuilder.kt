@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceBuilder {
 
-    private val apiURL = Resources.getSystem().getString(R.string.data_api)
+    private val apiURL = "http://api.duckduckgo.com/?q=simpsons+characters&amp;format=json"
 
         //Create HTTP CLIENT
     private val okHttp = OkHttpClient.Builder()

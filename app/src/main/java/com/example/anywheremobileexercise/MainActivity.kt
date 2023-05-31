@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +19,12 @@ import retrofit2.Response
 */
 
 class MainActivity : AppCompatActivity() {
+
+    //private val apiURL = Resources.getSystem().getString(R.string.data_api)
+
+    private var mRecyclerView: RecyclerView? = null
+    private var layoutManager: RecyclerView.LayoutManager? = null
+    private var mAdapter: CharactersAdapter? = null
 
     // Checking Internet is available or not
     private val isNetworkConnected: Boolean
@@ -32,6 +39,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mRecyclerView = findViewById(R.id.viewer_recycler) as RecyclerView
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView!!.setHasFixedSize(true)
+        layoutManager = GridLayoutManager(this@MainActivity,2)
+        mRecyclerView!!.setLayoutManager(layoutManager)
 
         if (isNetworkConnected) {
             loadCharacters()
@@ -52,11 +66,9 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     val characterList = response.body()!!
                     Log.d("Response", "characterlist size : ${characterList.size}")
-                 /*   viewer_recycler.apply {
-                        setHasFixedSize(true)
-                        layoutManager = GridLayoutManager(this@MainActivity,2)
-                        adapter = CharactersAdapter(response.body()!!)
-                    }*/
+                    mRecyclerView.apply {
+                        mAdapter = CharactersAdapter(response.body()!!)
+                    }
                 }else{
                     Toast.makeText(this@MainActivity, "Something went wrong ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
